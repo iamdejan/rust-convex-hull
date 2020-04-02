@@ -3,14 +3,11 @@ extern crate num_complex;
 use std::vec::Vec;
 use num_complex::Complex64;
 
-pub fn convex_hull(_polygon: Vec<Complex64>) -> Result<Vec<Complex64>, &'static str> {
-    if _polygon.len() == 0 {
-        return Err("only 0 Point(s)");
+pub fn convex_hull(polygon: Vec<Complex64>) -> Result<Vec<Complex64>, String> {
+    if polygon.len() <= 2 {
+        let message = format!("only {} Point(s)", polygon.len());
+        return Err(message);
     }
 
-    if _polygon.len() == 1 {
-        return Err("only 1 Point(s)");
-    }
-
-    return Err("only 2 Point(s)");
+    return Result::Ok(polygon);
 }

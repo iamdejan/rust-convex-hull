@@ -6,9 +6,9 @@ use rust_convex_hull::convex_hull;
 #[test]
 fn no_point() {
     let polygon: Vec<Complex64> = Vec::new();
-    let result: Result<Vec<Complex64>, &'static str> = convex_hull(polygon);
+    let result: Result<Vec<Complex64>, String> = convex_hull(polygon);
     assert_eq!(result.is_err(), true);
-    assert_eq!(result.err(), Some("only 0 Point(s)"));
+    assert_eq!(result.err(), Some("only 0 Point(s)".to_string()));
 }
 
 #[test]
@@ -17,9 +17,9 @@ fn one_point() {
     let mut polygon: Vec<Complex64> = Vec::new();
     polygon.push(point);
 
-    let result: Result<Vec<Complex64>, &'static str> = convex_hull(polygon);
+    let result: Result<Vec<Complex64>, String> = convex_hull(polygon);
     assert_eq!(result.is_err(), true);
-    assert_eq!(result.err(), Some("only 1 Point(s)"));
+    assert_eq!(result.err(), Some("only 1 Point(s)".to_string()));
 }
 
 #[test]
@@ -28,7 +28,19 @@ fn two_points() {
     polygon.push(Complex64::new(0.0, 0.0));
     polygon.push(Complex64::new(0.1, 0.0));
 
-    let result: Result<Vec<Complex64>, &'static str> = convex_hull(polygon);
+    let result: Result<Vec<Complex64>, String> = convex_hull(polygon);
     assert_eq!(result.is_err(), true);
-    assert_eq!(result.err(), Some("only 2 Point(s)"));
+    assert_eq!(result.err(), Some("only 2 Point(s)".to_string()));
+}
+
+#[test]
+fn three_points_convex() {
+    let mut polygon: Vec<Complex64> = Vec::new();
+    polygon.push(Complex64::new(0.0, 0.0));
+    polygon.push(Complex64::new(0.1, 0.0));
+    polygon.push(Complex64::new(0.0, 0.1));
+
+    let result: Result<Vec<Complex64>, String> = convex_hull(polygon);
+    assert_eq!(result.is_ok(), true);
+    assert_eq!(result.unwrap().len(), 3);
 }
