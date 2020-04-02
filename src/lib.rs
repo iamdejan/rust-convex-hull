@@ -4,5 +4,9 @@ use std::vec::Vec;
 use num_complex::Complex64;
 
 pub fn convex_hull(_polygon: Vec<Complex64>) -> Result<Vec<Complex64>, &'static str> {
-    return Err("there is only 1 Point");
+    if _polygon.len() == 1 {
+        return Err("only 1 Point(s)");
+    }
+
+    return Err("only 2 Point(s)");
 }
