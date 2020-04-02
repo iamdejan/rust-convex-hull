@@ -4,6 +4,14 @@ use num_complex::Complex64;
 use rust_convex_hull::convex_hull;
 
 #[test]
+fn no_point() {
+    let polygon: Vec<Complex64> = Vec::new();
+    let result: Result<Vec<Complex64>, &'static str> = convex_hull(polygon);
+    assert_eq!(result.is_err(), true);
+    assert_eq!(result.err(), Some("only 0 Point(s)"));
+}
+
+#[test]
 fn one_point() {
     let point: Complex64 = Complex64::new(0.0, 0.0);
     let mut polygon: Vec<Complex64> = Vec::new();
@@ -11,6 +19,7 @@ fn one_point() {
 
     let result: Result<Vec<Complex64>, &'static str> = convex_hull(polygon);
     assert_eq!(result.is_err(), true);
+    assert_eq!(result.err(), Some("only 1 Point(s)"));
 }
 
 #[test]
