@@ -68,3 +68,16 @@ fn three_points_colinear_vertical() {
     assert_eq!(result.is_ok(), true);
     assert_eq!(result.unwrap().len(), 0);
 }
+
+#[test]
+fn four_points_colinear_horizontal() {
+    let mut polygon: Vec<Complex64> = Vec::new();
+    polygon.push(Complex64::new(0.0, 0.0));
+    polygon.push(Complex64::new(0.1, 0.0));
+    polygon.push(Complex64::new(0.2, 0.0));
+    polygon.push(Complex64::new(0.3, 0.0));
+
+    let result: Result<Vec<Complex64>, String> = convex_hull(polygon);
+    assert_eq!(result.is_ok(), true);
+    assert_eq!(result.unwrap().len(), 0);
+}
