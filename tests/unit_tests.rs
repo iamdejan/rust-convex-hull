@@ -8,7 +8,7 @@ fn no_point() {
     let polygon: Vec<Complex64> = Vec::new();
     let result: Result<Vec<Complex64>, String> = convex_hull(polygon);
     assert_eq!(result.is_err(), true);
-    assert_eq!(result.err(), Some("only 0 Point(s)".to_string()));
+    assert_eq!(result.err(), Some("only 0 Point(s), should be at least 3".to_string()));
 }
 
 #[test]
@@ -19,7 +19,7 @@ fn one_point() {
 
     let result: Result<Vec<Complex64>, String> = convex_hull(polygon);
     assert_eq!(result.is_err(), true);
-    assert_eq!(result.err(), Some("only 1 Point(s)".to_string()));
+    assert_eq!(result.err(), Some("only 1 Point(s), should be at least 3".to_string()));
 }
 
 #[test]
@@ -30,7 +30,7 @@ fn two_points() {
 
     let result: Result<Vec<Complex64>, String> = convex_hull(polygon);
     assert_eq!(result.is_err(), true);
-    assert_eq!(result.err(), Some("only 2 Point(s)".to_string()));
+    assert_eq!(result.err(), Some("only 2 Point(s), should be at least 3".to_string()));
 }
 
 #[test]
@@ -93,4 +93,27 @@ fn four_points_colinear_vertical() {
     let result: Result<Vec<Complex64>, String> = convex_hull(polygon);
     assert_eq!(result.is_ok(), true);
     assert_eq!(result.unwrap().len(), 0);
+}
+
+#[test]
+fn five_points() {
+    let mut polygon: Vec<Complex64> = Vec::new();
+    polygon.push(Complex64::new(41.0, -6.0));
+    polygon.push(Complex64::new(-24.0, -74.0));
+    polygon.push(Complex64::new(-51.0, -6.0));
+    polygon.push(Complex64::new(73.0, 17.0));
+    polygon.push(Complex64::new(-30.0, -34.0));
+
+    let result: Result<Vec<Complex64>, String> = convex_hull(polygon);
+    assert_eq!(result.is_ok(), true);
+
+    let actual_result: Vec<Complex64> = result.unwrap();
+    assert_eq!(actual_result.len(), 3);
+
+    let mut expected_result: Vec<Complex64> = Vec::new();
+    expected_result.push(Complex64::new(-51.0, -6.0));
+    expected_result.push(Complex64::new(-24.0, -74.0));
+    expected_result.push(Complex64::new(73.0, 17.0));
+
+    assert_eq!(actual_result, expected_result);
 }
