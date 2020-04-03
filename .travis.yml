@@ -5,6 +5,7 @@ rust:
   - 1.42.0
 
 script:
-  - cargo build --verbose --all
   - cargo fmt --verbose --all
+  - cargo build --verbose --workspace
+  - cargo test --verbose --workspace --tests --release
   - bash validator.sh

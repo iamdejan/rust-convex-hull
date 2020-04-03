@@ -1,7 +1,7 @@
 extern crate num_complex;
 
-use std::vec::Vec;
 use num_complex::Complex64;
+use std::vec::Vec;
 
 fn cross(a: Complex64, b: Complex64) -> f64 {
     return (a.conj() * b).im;
@@ -50,7 +50,9 @@ fn lower_bound(polygon: &Vec<Complex64>) -> Vec<Complex64> {
         }
 
         let mut result_size = result.len();
-        while result_size >= 2 && invalid_orientation(result[result_size - 2], result[result_size - 1], polygon[i]) {
+        while result_size >= 2
+            && invalid_orientation(result[result_size - 2], result[result_size - 1], polygon[i])
+        {
             result.pop().unwrap();
             result_size = result.len();
         }
@@ -63,13 +65,15 @@ fn lower_bound(polygon: &Vec<Complex64>) -> Vec<Complex64> {
 fn upper_bound(mut result: Vec<Complex64>, polygon: Vec<Complex64>) -> Vec<Complex64> {
     let size = polygon.len();
     let length = result.len() + 1;
-    for i in (0..=size-2).rev() {
+    for i in (0..=size - 2).rev() {
         if polygon[i] == polygon[i + 1] {
             continue;
         }
- 
+
         let mut result_size = result.len();
-        while result_size >= length && invalid_orientation(result[result_size - 2], result[result_size - 1], polygon[i]) {
+        while result_size >= length
+            && invalid_orientation(result[result_size - 2], result[result_size - 1], polygon[i])
+        {
             result.pop().unwrap();
             result_size = result.len();
         }
@@ -92,7 +96,10 @@ fn sort_polygon_ccw(polygon: &mut Vec<Complex64>) {
 
 pub fn convex_hull(mut polygon: Vec<Complex64>) -> Result<Vec<Complex64>, String> {
     if polygon.len() <= 2 {
-        return Err(format!("only {} Point(s), should be at least 3", polygon.len()));
+        return Err(format!(
+            "only {} Point(s), should be at least 3",
+            polygon.len()
+        ));
     }
 
     sort_polygon_ccw(&mut polygon);

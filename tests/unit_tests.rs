@@ -1,5 +1,5 @@
-use std::vec::Vec;
 use num_complex::Complex64;
+use std::vec::Vec;
 
 use rust_convex_hull::convex_hull;
 
@@ -36,7 +36,10 @@ fn no_point() {
     let polygon: Vec<Complex64> = Vec::new();
     let result: Result<Vec<Complex64>, String> = convex_hull(polygon);
     assert_eq!(result.is_err(), true);
-    assert_eq!(result.err(), Some("only 0 Point(s), should be at least 3".to_string()));
+    assert_eq!(
+        result.err(),
+        Some("only 0 Point(s), should be at least 3".to_string())
+    );
 }
 
 #[test]
@@ -47,7 +50,10 @@ fn one_point() {
 
     let result: Result<Vec<Complex64>, String> = convex_hull(polygon);
     assert_eq!(result.is_err(), true);
-    assert_eq!(result.err(), Some("only 1 Point(s), should be at least 3".to_string()));
+    assert_eq!(
+        result.err(),
+        Some("only 1 Point(s), should be at least 3".to_string())
+    );
 }
 
 #[test]
@@ -58,7 +64,10 @@ fn two_points() {
 
     let result: Result<Vec<Complex64>, String> = convex_hull(polygon);
     assert_eq!(result.is_err(), true);
-    assert_eq!(result.err(), Some("only 2 Point(s), should be at least 3".to_string()));
+    assert_eq!(
+        result.err(),
+        Some("only 2 Point(s), should be at least 3".to_string())
+    );
 }
 
 #[test]
